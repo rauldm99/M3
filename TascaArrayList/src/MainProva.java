@@ -20,7 +20,7 @@ public class MainProva {
         System.out.println(persona.size());
         
         //Canvia les dades de la persona que està en la posició 1 (set)
-        persona.set(1, "Roberto");
+        persona.set(1, new Persona("Maria", "89345678F"));
         
         //Esborra la persona que està en la posició 2 (remove)
         persona.remove(2);
@@ -31,7 +31,14 @@ public class MainProva {
         }
         
         //Crea un arrayList de persones amb 2 pacients i 2 doctors.
-        
+		ArrayList<Persona> hospital = new ArrayList<>();
+		hospital.add(new Pacient("Fran", "12345678F", "Alergia al pescado"));
+		hospital.add(new Pacient("Aaron", "12345678T", "Ludopatia"));
+		hospital.add(new Doctor("Alvaro", "54311236H", "Pediatria"));
+		hospital.add(new Doctor("Carla", "789456324", "Cardiologia"));
+		
+		
+
 	}
 
 }
