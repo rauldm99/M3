@@ -8,5 +8,13 @@ public class Pacient extends Persona {
 		this.historialMedic = historialMedic;
 	}
 
+	public String getHistorialMedic() {
+		return historialMedic;
+	}
+
+	public void setHistorialMedic(String historialMedic) {
+		this.historialMedic = historialMedic;
+	}
+
 	
 }
