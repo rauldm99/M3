@@ -1,6 +1,10 @@
 package tascaCotxes;
 
-public abstract class Vehicle {
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
+
+public abstract class Vehicle implements Comparable<Vehicle> {
 	
 	protected String matricula;
 	protected int km;
@@ -8,13 +12,33 @@ public abstract class Vehicle {
 	protected String model;
 	protected String color;
 	
-	public Vehicle(String matricula, int km, String marca, String model, String color) {
+	public int compareTo(Vehicle v) {
+		return this.matricula.compareTo(v.getMatricula());
+	}
+	
+	public Vehicle(String matricula, String marca, String model, String color, int km) {
 		super();
+		if (!validarMatricula(matricula)) { throw new IllegalArgumentException("Format de la matricula erroni."); }
 		this.matricula = matricula;
-		this.km = km;
 		this.marca = marca;
 		this.model = model;
 		this.color = color;
+		this.km = km;
+	}
+
+	public static boolean validarMatricula(String mat) {
+		String regex1 = "^[0-9]{4}[a-zA-Z]{3}$";
+		
+		if (Pattern.matches(regex1, mat)) {
+			return true;
+		} 
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Vehicle [matricula=" + matricula + ", km=" + km + ", marca=" + marca + ", model=" + model + ", color="
+				+ color + "]";
 	}
 
 	public String getMatricula() {
@@ -56,7 +80,5 @@ public abstract class Vehicle {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
-	
 	
 }
