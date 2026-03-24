@@ -21,7 +21,7 @@ public class Concessionari {
 		}
 		return vehicles.add(c);
 	}
-	
+
 	public boolean afegirVehicle(Moto m) {
 		if (vehicles.size() > MAX_VEHICLES) {
 			return false;
@@ -35,7 +35,7 @@ public class Concessionari {
 
 	public boolean eliminarVehicle(String matricula) {
 		Iterator<Vehicle> itr = vehicles.iterator();
-		while (itr.hasNext()) {			
+		while (itr.hasNext()) {
 			if (itr.next().getMatricula().equals(matricula)) {
 				itr.remove();
 				return true;
@@ -52,22 +52,37 @@ public class Concessionari {
 		for (Vehicle v : vehicles) {
 			if (v instanceof Cotxe) {
 				Cotxe c = (Cotxe) v;
-				System.out.println(c.toString()); 
+				System.out.println(c.toString());
 			} else {
 				Moto m = (Moto) v;
-				System.out.println(m.toString()); 
+				System.out.println(m.toString());
 			}
 		}
 	}
 
-	
-	public int mitjanaKm(){
+	public int mitjanaKm() {
 		Iterator<Vehicle> itr = vehicles.iterator();
 		int suma = 0;
-		while (itr.hasNext()) {		
+		while (itr.hasNext()) {
 			suma = suma + itr.next().getKm();
-			}
-		return suma/vehicles.size();
+		}
+		return suma / vehicles.size();
 	}
-	
+
+	public String getAdreca() {
+		return adreca;
+	}
+
+	public void setAdreca(String adreca) {
+		this.adreca = adreca;
+	}
+
+	public TreeSet<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+	public void setVehicles(TreeSet<Vehicle> vehicles) {
+		this.vehicles = vehicles;
+	}
+
 }
