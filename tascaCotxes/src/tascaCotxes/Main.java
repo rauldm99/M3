@@ -1,5 +1,6 @@
 package tascaCotxes;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
@@ -12,17 +13,22 @@ public class Main {
 
 		Scanner sc = new Scanner(System.in);
 		int opcio = -1;
+		Concessionari c = new Concessionari("Carrer Inventat, n5");
+		GestorCSV gCsv = new GestorCSV();
+		GestorXml gXml = new GestorXml();
 
 		do {
 			System.out.println("\n--- GESTIÓ DE VEHICLES ---");
 			System.out.println("1. Carregar vehicles des de fitxer CSV");
 			System.out.println("2. Carregar vehicles des de fitxer XML");
-			System.out.println("3. Mostrar la llista de vehicles");
-			System.out.println("4. Afegir un vehicle");
-			System.out.println("5. Eliminar un vehicle (per matrícula)");
-			System.out.println("6. Quin és el cotxe amb més quilòmetres?");
-			System.out.println("7. Desar els vehicles a un fitxer CSV");
-			System.out.println("8. Desar els vehicles a un fitxer XML");
+			System.out.println("3. Carregar vehicles des d'un fitxer binari");
+			System.out.println("4. Mostrar la llista de vehicles");
+			System.out.println("5. Afegir un vehicle");
+			System.out.println("6. Eliminar un vehicle (per matrícula)");
+			System.out.println("7. Quin és el cotxe amb més quilòmetres?");
+			System.out.println("8. Desar els vehicles a un fitxer CSV");
+			System.out.println("9. Desar els vehicles a un fitxer XML");
+			System.out.println("10. Desar els vehicles a un fitxer binari");
 			System.out.println("0. Sortir");
 			System.out.print("Selecciona una opció: ");
 
@@ -31,28 +37,34 @@ public class Main {
 
 				switch (opcio) {
 				case 1:
-					carregarCSV();
+					c.setVehicles(gCsv.llegir(sc.nextLine()));
 					break;
 				case 2:
-					carregarXML();
 					break;
 				case 3:
-					mostrarVehicles();
 					break;
 				case 4:
-					afegirVehicle();
+					c.mostrarVehicles();
 					break;
 				case 5:
-					eliminarVehicle();
 					break;
 				case 6:
-					cotxeMesKilometres();
+					c.eliminarVehicle(sc.nextLine());
 					break;
 				case 7:
-					desarCSV();
 					break;
 				case 8:
-					desarXML();
+					gCsv.guardar(null);
+					break;
+				case 9:
+					try {
+						gXml.guardar(c.getVehicles());
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
+				case 10:
 					break;
 				case 0:
 					System.out.println("Sortint del programa...");
