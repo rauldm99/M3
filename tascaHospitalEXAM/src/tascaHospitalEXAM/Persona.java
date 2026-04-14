@@ -1,21 +1,26 @@
 package tascaHospitalEXAM;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 public class Persona {
 
 	protected String nom;
 	protected String dni; // VALIDAR!
-	protected LocalDate dataNeix;
+	protected String dataNeix;
 	protected String telefon;
 
-	public Persona(String nom, String dni, LocalDate dataNeix, String telefon) {
+	public Persona(String nom, String dni, String dataNeix, String telefon) {
 		super();
 		this.nom = nom;
 		if (!validarDNI(dni)) {
 			throw new IllegalArgumentException("Format del DNI erroni!");
 		}
 		this.dni = dni;
+		if (!validarFecha(dataNeix)) {
+			throw new IllegalArgumentException("Data en format erroni, ha de ser dd/MM/yyy");
+		}
 		this.dataNeix = dataNeix;
 		this.telefon = telefon;
 	}
@@ -24,7 +29,7 @@ public class Persona {
 	 * Metodo para validar el DNI
 	 * 
 	 * @param dni
-	 * @return true: si el formato del DNI es valido, false: si no lo es
+	 * @return true: es valid, false: no
 	 */
 	public static boolean validarDNI(String dni) {
 		if (dni.length() != 9) {
@@ -37,6 +42,20 @@ public class Persona {
 			return false;
 		}
 		return true;
+	}
+
+	public boolean validarFecha(String fecha) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		if (LocalDate.parse(fecha, formatter) == null) {
+			return false;
+		}
+		return true;
+	}
+
+	public int getEdat() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		Period periodo = Period.between(LocalDate.parse(this.dataNeix, formatter), LocalDate.now());
+		return periodo.getYears();
 	}
 
 	public String getNom() {
@@ -57,11 +76,14 @@ public class Persona {
 		}
 	}
 
-	public LocalDate getDataNeix() {
+	public String getDataNeix() {
 		return dataNeix;
 	}
 
-	public void setDataNeix(LocalDate dataNeix) {
+	public void setDataNeix(String dataNeix) {
+		if (!validarFecha(dataNeix)) {
+			throw new IllegalArgumentException("Data en format erroni, ha de ser dd/MM/yyy");
+		}
 		this.dataNeix = dataNeix;
 	}
 
@@ -71,6 +93,11 @@ public class Persona {
 
 	public void setTelefon(String telefon) {
 		this.telefon = telefon;
+	}
+
+	@Override
+	public String toString() {
+		return "Persona [nom=" + nom + ", dni=" + dni + ", dataNeix=" + dataNeix + ", telefon=" + telefon + "]";
 	}
 
 }

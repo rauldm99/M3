@@ -6,14 +6,13 @@ public class InvalidCodiPacientException extends Exception {
 
 		super(message);
 
-		
 	}
 
 	public String getLocalizedMessage() {
 
 		String error = super.getMessage();
 
-		error += "\nMissatge personalitzat";
+		error += "\nEl codi es incorrecte!";
 
 		return error;
 
